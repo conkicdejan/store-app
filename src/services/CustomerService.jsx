@@ -1,14 +1,18 @@
 class CustomerService {
   constructor() {
     this.customers = [
-      { id: 1, firstname: "Dejan", lastname: "Conkic" },
-      { id: 2, firstname: "Petar", lastname: "Petrovic" },
-      { id: 3, firstname: "Ivan", lastname: "Ivanovic" },
+      { id: 1, firstName: "Dejan", lastName: "Conkic" },
+      { id: 2, firstName: "Petar", lastName: "Petrovic" },
+      { id: 3, firstName: "Ivan", lastName: "Ivanovic" },
     ];
   }
 
   getAll() {
     return this.customers;
+  }
+
+  add(newCustomer) {
+    this.customers.push(newCustomer);
   }
 
   remove(id) {
