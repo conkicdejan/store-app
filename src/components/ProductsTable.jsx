@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
 export default function ProductsTable({ products, changeQty }) {
+  let match = useRouteMatch();
   return (
     <div>
       <table>
@@ -22,6 +23,7 @@ export default function ProductsTable({ products, changeQty }) {
               <td className="actions">
                 <button onClick={() => changeQty(id, 1)}>add</button>
                 <button onClick={() => changeQty(id, -1)}>remove</button>
+                <button><Link to={`${match.path}/${id}`}>buy</Link></button>
               </td>
             </tr>
           ))}

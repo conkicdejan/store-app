@@ -15,6 +15,13 @@ class CustomerService {
     return this.customers.find(({ id: custId }) => custId === id)
   }
 
+  updatePurchases(costumerId, productId) {
+    const customer = this.customers.find(({ id: custId }) => custId === costumerId)
+    console.log(customer);
+    customer.latestPurchases.push(productId)
+    console.log(this.customers);
+  }
+
   add(newCustomer) {
     this.customers.push(newCustomer);
   }

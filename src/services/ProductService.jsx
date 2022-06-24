@@ -19,9 +19,11 @@ class ProductService {
   }
 
   changeQty(id, newStock) {
+    console.log(newStock);
     const index = this.products.findIndex(({ id: prodId }) => prodId === id);
     const newProducts = [...this.products];
     newProducts[index].stock = newStock;
+    console.log(this.products);
     return true;
   }
 }
