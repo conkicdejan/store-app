@@ -11,9 +11,9 @@ export default function LatestPurchases() {
     <div>
       <h3>{firstName} {lastName}</h3>
       <ul>
-        {latestPurchases.map((itemId) => (
+        {(latestPurchases && latestPurchases.length > 0) ? latestPurchases.map((itemId) => (
           <li key={itemId}>{itemId}</li>
-        ))}
+        )) : 'no purchase yet'}
       </ul>
     </div>
   );
