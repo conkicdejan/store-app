@@ -10,6 +10,15 @@ export default function AppProducts() {
   const productsList = () =>
     products.filter((product) => product.name.toLowerCase().includes(search));
 
+  const handleChangeQty = (id, step) => {
+    const newProducts = [...products];
+    const index = newProducts.findIndex(({ id: prodId }) => prodId === id);
+    newProducts[index].stock = Math.max(newProducts[index].stock + step, 0);
+    if (ProductService.changeQty(id, newProducts[index].stock)) {
+      setProducts(newProducts);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -19,11 +28,11 @@ export default function AppProducts() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="search..."
         />
-        <button onClick={() => setSearch('')}>clear</button>
+        <button onClick={() => setSearch("")}>clear</button>
       </div>
       <div>
         <h3>Product list</h3>
-        <ProductsTable products={productsList()} />
+        <ProductsTable products={productsList()} changeQty={handleChangeQty} />
       </div>
     </div>
   );
