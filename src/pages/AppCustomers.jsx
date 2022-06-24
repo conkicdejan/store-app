@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import CustomerService from "../services/CustomerService";
 import Customer from "./../components/Customer";
+import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
+import LatestPurchases from "../components/LatestPurchases";
 
 export default function AppCustomers() {
   const [customers, setCustomers] = useState(CustomerService.getAll());
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  let match = useRouteMatch();
 
   const fullname = (customer) => `${customer.firstName} ${customer.lastName}`;
 
@@ -25,31 +28,38 @@ export default function AppCustomers() {
 
   return (
     <div>
-      <form onSubmit={addCustomer}>
-        <input
-          type="text"
-          onChange={(e) => setFirstName(e.target.value)}
-          value={firstName}
-          placeholder="first name"
-        />
-        <input
-          type="text"
-          onChange={(e) => setLastName(e.target.value)}
-          value={lastName}
-          placeholder="last name"
-        />
-        <button>Add customer</button>
-      </form>
-      <div>
-        {customers.map((customer) => (
-          <Customer
-            key={customer.id}
-            id={customer.id}
-            fullname={fullname(customer)}
-            remove={handleRemove}
-          />
-        ))}
-      </div>
+      <Switch>
+        <Route exact path="/customers">
+          <form onSubmit={addCustomer}>
+            <input
+              type="text"
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+              placeholder="first name"
+            />
+            <input
+              type="text"
+              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+              placeholder="last name"
+            />
+            <button>Add customer</button>
+          </form>
+          <div>
+            {customers.map((customer) => (
+                <Customer
+                  key={customer.id}
+                  id={customer.id}
+                  fullname={fullname(customer)}
+                  remove={handleRemove}
+                />
+            ))}
+          </div>
+        </Route>
+        <Route path={`${match.path}/:customerId`}>
+          <LatestPurchases />
+        </Route>
+      </Switch>
     </div>
   );
 }
